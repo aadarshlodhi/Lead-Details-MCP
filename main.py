@@ -243,12 +243,14 @@ def send_custom_email(to_email: str, subject: str, body: str) -> dict:
 # ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    # Use HTTP transport for cloud deployment (FastAPI Cloud, Render, etc.)
-    # Use stdio transport for local Claude Desktop connection
-    transport = os.getenv("MCP_TRANSPORT", "streamable-http")
-    port = int(os.getenv("PORT", "8000"))
+    # Cloud platforms (FastAPI Cloud, Render, Railway) always set PORT env var
+    # Local usage (Claude Desktop, lead_client.py) does NOT set PORT
+    port = os.getenv("PORT")
     
-    if transport == "streamable-http":
-        mcp.run(transport="streamable-http", host="0.0.0.0", port=port)
+    if port:
+        # Running in cloud — use HTTP transport
+        mcp.run(transport="streamable-http", host="0.0.0.0", port=int(port))
     else:
-        mcp.run()  # stdio for local Claude Desktop
+        # Running locally — use stdio for Claude Desktop / lead_client.py
+        mcp.run()
+
