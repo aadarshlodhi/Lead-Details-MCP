@@ -1,0 +1,27 @@
+# Environment variables (contains email credentials - NEVER commit this)
+.env
+
+# SQLite database (local data)
+leads.db
+expenses.db
+*.db
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE files
+.vscode/
+.idea/
+
+# Temp files
+err.txt
+*.log
